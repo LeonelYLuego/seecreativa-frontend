@@ -1,0 +1,28 @@
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.log-out {
+  margin: 10px 20px;
+}
+
+.logo {
+  width: 100px; 
+  margin: 0px 20px;
+}
+
+.logo img {
+  margin-top: 5px;
+  width: 90px;
+}
+
+.menu {
+  flex: 1;
+  align-items: flex-start;
+  justify-content: flex-start;
+  border: none;
+  min-width: auto;
+}

@@ -1,4 +1,9 @@
-@tailwind base;
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+
+/*@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -25,3 +30,4 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+*/

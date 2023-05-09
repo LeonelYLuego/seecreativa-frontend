@@ -1,0 +1,31 @@
+{
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true,
+        "**/Thumbs.db": true,
+        ".vscode": true,
+        ".next": true,
+        "node_modules": true,
+        ".eslintrc.json": true,
+        "next.config.js": true,
+        "next-env.d.ts": true,
+        "package-lock.json": true,
+        "postcss.config.js": true,
+        "tailwind.config.js": true,
+        "tsconfig.json": true
+    },
+    "hide-files.files": [
+        ".vscode",
+        ".next",
+        "node_modules",
+        ".eslintrc.json",
+        "next-env.d.ts",
+        "package-lock.json",
+        "postcss.config.js",
+        "tailwind.config.js",
+        "tsconfig.json"
+    ]
+}
