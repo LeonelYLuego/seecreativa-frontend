@@ -3,6 +3,22 @@ body {
   margin: 0;
 }
 
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.title-name {
+  margin: 0;
+}
+
+.add-button {
+  margin-left: 10px;
+}
+
+
 /*@tailwind base;
 @tailwind components;
 @tailwind utilities;

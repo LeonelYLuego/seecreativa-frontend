@@ -10,12 +10,14 @@
         ".next": true,
         "node_modules": true,
         ".eslintrc.json": true,
-        "next.config.js": true,
         "next-env.d.ts": true,
         "package-lock.json": true,
         "postcss.config.js": true,
         "tailwind.config.js": true,
-        "tsconfig.json": true
+        "tsconfig.json": true,
+        ".github": true,
+        "out": true,
+        "next.config.js": true
     },
     "hide-files.files": [
         ".vscode",
@@ -26,6 +28,9 @@
         "package-lock.json",
         "postcss.config.js",
         "tailwind.config.js",
-        "tsconfig.json"
+        "tsconfig.json",
+        ".github",
+        "out",
+        "next.config.js"
     ]
 }
