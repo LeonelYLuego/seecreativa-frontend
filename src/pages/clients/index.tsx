@@ -107,7 +107,7 @@ const App = () => {
     },
   ];
 
-  const handleDelete = (id: string) => {
+  const handleDelete = (id: any) => {
     Http.Delete(`/clients/${id}`, eval('')).then(() => {
       reloadData();
     });
