@@ -56,12 +56,12 @@ export default function Clients({
 
     cliente.rfc
       ? (cliente.rfc = cliente.rfc.toUpperCase())
-      : (cliente.rfc = null);
-    cliente.address ? cliente.address : (cliente.address = null);
+      : (cliente.rfc = undefined);
+    cliente.address ? cliente.address : (cliente.address = undefined);
     cliente.email
       ? (cliente.email = cliente.email.toLowerCase())
-      : (cliente.email = null);
-    cliente.phone ? (cliente.phone = cliente.phone) : (cliente.phone = null);
+      : (cliente.email = undefined);
+    cliente.phone ? (cliente.phone = cliente.phone) : (cliente.phone = undefined);
 
     const rfcRegex = /^[A-Z]{4}[0-9]{6}[A-Z0-9]{3}$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
