@@ -1,4 +1,4 @@
-export interface ProductResponseDto {
+export interface ProductWithClassificationResponseDto {
   id: string;
   code: string;
   name: string;
@@ -8,5 +8,8 @@ export interface ProductResponseDto {
   height: number;
   diameter?: number;
   imageUrls: string[];
-  classificationId: string;
+  classification: {
+    id: string;
+    name: string;
+  };
 }
