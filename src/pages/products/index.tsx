@@ -1,26 +1,14 @@
 import AddEditProduct from "@/common/components/products/add-edit-product";
 import { ProductResponseDto } from "@/common/components/products/dto/product-response.dto";
 import Http from "@/common/utils/classes/http";
-import { Button, ConfigProvider, Modal, Table } from "antd";
+import { ENDPOINTS } from "@/common/utils/constants/endpoints.constant";
+import { Button, ConfigProvider, Table, notification } from "antd";
 import { ColumnsType } from "antd/es/table";
 import { useState, useEffect } from "react";
 
 export default function Products() {
   const [products, setProducts] = useState<ProductResponseDto[]>([]);
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
+  const [api, contextHolder] = notification.useNotification();
 
   const columns: ColumnsType<ProductResponseDto> = [
     {
@@ -74,7 +62,7 @@ export default function Products() {
             },
           }}
         >
-          <Button type="primary">Editar</Button>
+          <AddEditProduct getProducts={getProducts} edit={product.id} />
         </ConfigProvider>
       ),
     },
@@ -89,34 +77,48 @@ export default function Products() {
             },
           }}
         >
-          <Button type="primary">Eliminar</Button>
+          <Button type="primary" onClick={() => deleteProduct(product.id)}>
+            Eliminar
+          </Button>
         </ConfigProvider>
       ),
     },
   ];
 
+  const getProducts = () => {
+    Http.Get<ProductResponseDto[]>(ENDPOINTS.PRODUCTS.BASE)
+      .then((data) => {
+        setProducts(data);
+      })
+      .catch((error) => {
+        api["error"]({
+          message: "Ha ocurrido un error al obtener los productos",
+        });
+      });
+  };
+
+  const deleteProduct = (id: string) => {
+    Http.Delete<boolean>(ENDPOINTS.PRODUCTS.BY_ID(id), {})
+      .then((data) => {
+        getProducts();
+      })
+      .catch((error) => {
+        api["error"]({
+          message: "Ha ocurrido un error al eliminar el producto",
+        });
+      });
+  };
+
   useEffect(() => {
-    Http.Get<ProductResponseDto[]>("/Products").then((data) => {
-      setProducts(data);
-    });
+    getProducts();
   }, []);
 
   return (
     <div>
       <div className="title">
         <h1 className="title-name">Productos</h1>
-        <Button type="primary" className="add-button" onClick={showModal}>
-          Agregar Producto
-        </Button>
+        <AddEditProduct getProducts={getProducts} />
       </div>
-      <Modal
-        title="Agregar Producto"
-        open={isModalOpen}
-        onOk={handleOk}
-        onCancel={handleCancel}
-      >
-        <AddEditProduct />
-      </Modal>
       <Table dataSource={products} columns={columns} rowKey="id"></Table>
     </div>
   );

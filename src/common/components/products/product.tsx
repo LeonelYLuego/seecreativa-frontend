@@ -1,10 +1,10 @@
-export interface ProductResponseDto {
+export interface Product {
   id: string;
   code: string;
   name: string;
   weight: number;
   length?: number;
-  width?: number;
+  with?: number;
   height: number;
   diameter?: number;
   imageUrls: string[];
