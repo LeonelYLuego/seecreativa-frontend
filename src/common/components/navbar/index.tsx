@@ -8,6 +8,12 @@ export default function NavBar() {
   const router = useRouter()
   const path = router.pathname;
 
+  const salir_sesion = () => {
+    console.log("Sesion eliminada en local Storage");
+    localStorage.clear();
+    router.push('/');
+  };
+
   const items: MenuProps['items'] = [
     {
       key: PATHS.PRODUCTS.DEFAULT,
@@ -58,6 +64,9 @@ export default function NavBar() {
     },
   ];
 
+  if (path == "/" || path == "/login")
+  return <></>
+
   return (
     <div className={styles["nav-bar"]}>
       <div className={styles.logo}>
@@ -71,7 +80,7 @@ export default function NavBar() {
         items={items}
       />
       <div className={styles["log-out"]}>
-        <Button type="primary">Salir</Button>
+        <Button onClick={salir_sesion} type="primary">Salir</Button>
       </div>
     </div>
   );
