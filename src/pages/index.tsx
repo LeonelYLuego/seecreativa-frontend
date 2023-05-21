@@ -1,16 +1,8 @@
 import { Button, Space, DatePicker, Card } from "antd";
+import login from "./login";
 
 export default function Home() {
   return (
-    <div>
-      <h1>Bienvenido a Seecreativa</h1>
-      <Button
-        style={{
-          margin: "5px",
-        }}
-      >
-        Hola
-      </Button>
-    </div>
+    login()
   );
 }
