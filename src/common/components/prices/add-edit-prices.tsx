@@ -17,9 +17,9 @@ export default function Precio({
     const [buttonName, setButtonName] = useState<string>("Agregar");
     const [precio, setPrecio] = useState<priceResponseDto>({
       name: "",
-      minWeight: 0,
-      minPrice: 0,
-      factor: 0
+      minWeight: "",
+      minPrice: "",
+      factor: "",
     });
   
     useEffect(() => {
@@ -36,6 +36,9 @@ export default function Precio({
       setPrecio({
         ...precio,
         [e.target.name]: e.target.value,
+        [e.target.minWeight]: e.target.value,
+        [e.target.minPrice]: e.target.value,
+        [e.target.factor]: e.target.value,
       });
     };
   
@@ -48,19 +51,19 @@ export default function Precio({
   
     const handleSubmit = async () => {
       precio.name? precio.name: openNotification("Nombre vacío", "El campo de nombre no puede estar vacío")
-      
+      precio.minWeight? precio.minWeight: openNotification("Espacio vacío", "El peso no puede estar vacío")
       if (precio.name) {
         setLoading(true);
         console.log(precio);
         if (action == "edit") {
           const req = await Http.Patch<priceResponseDto>(
-            "/Classifications/" + precio.id,
+            "/Prices/" + precio.id,
             precio
           ).then((data) => {});
           console.log(req);
         } else {
           const req = await Http.Post<priceResponseDto>(
-            "/Classifications",
+            "/Prices",
             precio
           ).then((data) => {});
         }
@@ -79,7 +82,7 @@ export default function Precio({
             name="basic"
             labelCol={{ span: 5 }}
             wrapperCol={{ span: 16 }}
-            style={{ maxWidth: 600 }}
+            style={{ maxWidth: 700 }}
             initialValues={{ remember: true }}
             autoComplete="off"
           >
@@ -93,6 +96,42 @@ export default function Precio({
                 placeholder="Nombre"
                 name="name"
                 value={precio.name}
+              />
+            </Form.Item>
+            <Form.Item
+              label="Peso minimo"
+              name="minWeight"
+              rules={[{ required: true, message: "Introduce el peso minimo" }]}
+            >
+              <Input
+                onChange={handleChange}
+                placeholder="Peso"
+                name="minWeight"
+                value={precio.minWeight}
+              />
+            </Form.Item>
+            <Form.Item
+              label="Precio minimo"
+              name="minPrice"
+              rules={[{ required: true, message: "Introduce el peso minimo" }]}
+            >
+              <Input
+                onChange={handleChange}
+                placeholder="Precio minimo"
+                name="minPrice"
+                value={precio.minPrice}
+              />
+            </Form.Item>
+            <Form.Item
+              label="Factor"
+              name="factor"
+              rules={[{ required: true, message: "Introduce el factor" }]}
+            >
+              <Input
+                onChange={handleChange}
+                placeholder="Factor"
+                name="Factor"
+                value={precio.factor}
               />
             </Form.Item>
             <Form.Item wrapperCol={{ offset: 10, span: 16 }}>

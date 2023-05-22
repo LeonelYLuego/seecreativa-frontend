@@ -9,9 +9,9 @@ import {priceResponseDto} from '@/common/components/prices/dto/price-response.dt
 interface DataType {
   key: string;
   name: string;
-  minWeight: 0;
-  minPrice: 0;
-  factor: 0;
+  minWeight: string;
+  minPrice: string;
+  factor: string;
 }
 
 
@@ -21,6 +21,9 @@ const App = () => {
   const [edit, setEdit] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [inputValue, setInputValue] = useState<string>('');
+  const [pesoValue, setPesoValue] = useState<string>('');
+  const [precioValue, setPrecioValue] = useState<string>('');
+  const [factorValue, setFactorValue] = useState<string>('');
   const [precios, setPrecios] = useState<priceResponseDto[]>([]);
   const [precio, setPrecio] = useState<priceResponseDto>();
   const [trigger, setTrigger] = useState(0);
@@ -51,6 +54,18 @@ const App = () => {
     setInputValue(event.target.value);
   };
 
+  const handlePesoChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPesoValue(event.target.value);
+  };
+
+  const handlePrecioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setPrecioValue(event.target.value);
+  };
+
+  const handleFactorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFactorValue(event.target.value);
+  };
+
   useEffect(() => {
     reloadData();
   }, []);
@@ -60,9 +75,9 @@ const App = () => {
 
     const dataToSend = {
       name: inputValue,
-      minWeight: inputValue,
-      minPrice: 0,
-      factor: 0
+      minWeight: pesoValue,
+      minPrice: precioValue,
+      factor: factorValue
     };
 
     fetch('https://seecreativa-api.azurewebsites.net/Api/Prices', {
@@ -127,18 +142,18 @@ const App = () => {
     {
       title: 'Editar',
       key: 'action',
-      render: (_, clasificacion) => (
+      render: (_, precio) => (
         <Space size="middle">
-          <Button type='primary' onClick={() => showEdit(clasificacion)} style={{ backgroundColor: 'green'}}>Editar</Button>
+          <Button type='primary' onClick={() => showEdit(precio)} style={{ backgroundColor: 'green'}}>Editar</Button>
         </Space>
       ),
     },
     {
         title: 'Eliminar',
         key: 'eliminar',
-        render: (_, clasificacion) => (
+        render: (_, precio) => (
           <Space size="middle">
-            <Button type='primary' onClick={() => handleDelete(clasificacion.id)} style={{ backgroundColor: 'red'}}>Eliminar</Button>
+            <Button type='primary' onClick={() => handleDelete(precio.id)} style={{ backgroundColor: 'red'}}>Eliminar</Button>
           </Space>
         ),
       },
@@ -148,9 +163,9 @@ const App = () => {
       confirm({
         title: 'Confirmacion de eliminacion',
         icon: <ExclamationCircleFilled/>,
-        content: '¿Seguro que quieres eliminar esta clasificasión?',
+        content: '¿Seguro que quieres eliminar este tipo de precio?',
         onOk(){
-          Http.Delete(`/classifications/${id}`, eval('')).then(() => {
+          Http.Delete(`/Prices/${id}`, eval('')).then(() => {
           reloadData();
         });
       },
@@ -162,7 +177,8 @@ const App = () => {
   
     const reloadData = async() => {
       setLoading(true);
-      await Http.Get<priceResponseDto[]>("/price").then((data) => {
+      
+      await Http.Get<priceResponseDto[]>("/Prices").then((data) => {
         setPrecios(data);
       });
       setLoading(false);
@@ -172,7 +188,7 @@ const App = () => {
         <Space>
           
         <Button onClick={showModal} type='primary' style={{ backgroundColor: 'purple', color: 'white'}}>
-              Agregar nueva Clasificacion
+              Agregar nuevo
           </Button>
           <Modal
           open={open}
@@ -189,9 +205,9 @@ const App = () => {
           ]}
         >
           <p>Tipo<Input value={inputValue} onChange={handleInputChange} ></Input> </p>
-          <p>Peso<Input value={inputValue} onChange={handleInputChange} ></Input> </p>
-          <p>Precio<Input value={inputValue} onChange={handleInputChange} ></Input> </p>
-
+          <p>Peso<Input value={pesoValue} onChange={handlePesoChange} ></Input> </p>
+          <p>Precio<Input value={precioValue} onChange={handlePrecioChange} ></Input> </p>
+          <p>Factor<Input value={factorValue} onChange={handleFactorChange} ></Input> </p>
         </Modal>
         
         <Space size="middle">
