@@ -13,7 +13,7 @@ import {
   notification,
 } from "antd";
 import { useState, useEffect, useRef } from "react";
-import ClassificationResponseDto from "../classifications/dto/classification-response.dto";
+import {classificationResponseDto} from "../classifications/dto/classification-response.dto";
 import { ProductCreateDto } from "./dto/product-create.dto";
 import { ENDPOINTS } from "@/common/utils/constants/endpoints.constant";
 import { ProductUpdateDto } from "./dto/product-update.dto";
@@ -25,7 +25,7 @@ export default function AddEditProduct(props: {
   edit?: string;
 }) {
   const [classifications, setClassifications] = useState<
-    ClassificationResponseDto[]
+  classificationResponseDto[]
   >([]);
   const [product, setProduct] = useState<Product | undefined>(undefined);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -34,7 +34,7 @@ export default function AddEditProduct(props: {
   const [api, contextHolder] = notification.useNotification();
 
   useEffect(() => {
-    Http.Get<ClassificationResponseDto[]>(ENDPOINTS.CLASSIFICATIONS.BASE)
+    Http.Get<classificationResponseDto[]>(ENDPOINTS.CLASSIFICATIONS.BASE)
       .then((data) => {
         setClassifications(data);
       })
@@ -101,7 +101,7 @@ export default function AddEditProduct(props: {
                 ? undefined
                 : values.width,
           };
-          Http.Patch<ClassificationResponseDto>(
+          Http.Patch<classificationResponseDto>(
             ENDPOINTS.PRODUCTS.BY_ID(props.edit),
             editedProduct
           )
@@ -135,7 +135,7 @@ export default function AddEditProduct(props: {
                 ? undefined
                 : values.width,
           };
-          Http.Post<ClassificationResponseDto>(ENDPOINTS.PRODUCTS.BASE, product)
+          Http.Post<classificationResponseDto>(ENDPOINTS.PRODUCTS.BASE, product)
             .then((data) => {
               props.getProducts();
               formRef.current!.resetFields();
