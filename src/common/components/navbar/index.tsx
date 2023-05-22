@@ -3,6 +3,7 @@ import { AppstoreOutlined } from "@ant-design/icons";
 import styles from "./style.module.css";
 import { PATHS } from "@/common/utils/constants/paths.constant";
 import { useRouter } from "next/router";
+import Image from "next/image";
 
 export default function NavBar() {
   const router = useRouter()
@@ -70,7 +71,7 @@ export default function NavBar() {
   return (
     <div className={styles["nav-bar"]}>
       <div className={styles.logo}>
-        <img src="/logo.svg" alt="Logo" />
+        <Image className={styles["image"]} src="logo.svg" alt="Logo" width={90} height={40}/>
       </div>
       <Menu
         theme="light"

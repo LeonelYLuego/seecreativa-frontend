@@ -42,6 +42,7 @@ export default function AddEditProduct(props: {
         api["error"]({
           message: "Ha ocurrido un error al obtener las clasificaciones",
         });
+        setClassifications([]);
       });
   }, []);
 
