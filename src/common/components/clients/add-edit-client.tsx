@@ -28,7 +28,6 @@ export default function Clients({
   useEffect(() => {
     if (action == "edit") {
       setButtonName("Editar");
-      console.log("adiosin");
       if (client != undefined) {
         setCliente(client);
       }
@@ -84,13 +83,11 @@ export default function Clients({
 
     if (valRfc && valEmail && valPhone && cliente.name) {
       setLoading(true);
-      console.log(cliente);
       if (action == "edit") {
         const req = await Http.Patch<clientResponseDto>(
           "/Clients/" + cliente.id,
           cliente
         ).then((data) => {});
-        console.log(req);
       } else {
         const req = await Http.Post<clientResponseDto>(
           "/Clients",

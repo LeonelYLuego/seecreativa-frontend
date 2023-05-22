@@ -26,7 +26,6 @@ export default function User({
   useEffect(() => {
     if (action == "edit") {
       setButtonName("Editar");
-      console.log("adiosin");
       if (usuario != undefined) {
         setUser(usuario);
       }
@@ -68,15 +67,12 @@ export default function User({
         return;
     }
 
-    console.log(user);
-
     setLoading(true);
     if (action == "edit") {
         const req = await Http.Patch<userResponseDto>(
           "/Users/" + user.id,
           user
         ).then((data) => {});
-        console.log(req);
       } else {
         try {
           const req = await Http.Post<userResponseDto>(
