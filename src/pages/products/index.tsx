@@ -120,7 +120,7 @@ export default function Products() {
 
   useEffect(() => {
     getProducts();
-  }, []);
+  });
 
   return (
     <div>
