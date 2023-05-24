@@ -1,4 +1,4 @@
-export default interface ClassificationResponseDto {
-  id: string;
-  name: string;
-}
+export interface classificationResponseDto {
+    id?: string;
+    name: string;
+  }
